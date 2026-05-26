@@ -1,0 +1,236 @@
+@import 'tailwindcss';
+
+/* Avoid scanning build output and static uploads (prevents stale url() resolution). */
+@source not '../dist';
+@source not '../public';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+
+  --color-ink: var(--theme-ink);
+  --color-ink-muted: var(--theme-ink-muted);
+  --color-surface: var(--theme-surface);
+  --color-surface-elevated: var(--theme-surface-elevated);
+  --color-border: var(--theme-border);
+  --color-accent: var(--theme-accent);
+  --color-accent-light: var(--theme-accent-light);
+  --color-accent-dark: var(--theme-accent-dark);
+  --color-accent-soft: var(--theme-accent-soft);
+  --color-sidebar: var(--theme-sidebar);
+  --color-sidebar-muted: var(--theme-sidebar-muted);
+  --color-photo-accent: var(--theme-photo-accent);
+  --color-logo-tile: var(--theme-logo-tile);
+  --color-logo-tile-border: var(--theme-logo-tile-border);
+}
+
+:root {
+  --theme-ink: #0f172a;
+  --theme-ink-muted: #64748b;
+  --theme-surface: #f8fafc;
+  --theme-surface-elevated: #ffffff;
+  --theme-border: #e2e8f0;
+  --theme-accent: #2563eb;
+  --theme-accent-light: #3b82f6;
+  --theme-accent-dark: #1d4ed8;
+  --theme-accent-soft: #dbeafe;
+  --theme-sidebar: #2c3338;
+  --theme-sidebar-muted: #9ca3af;
+  --theme-photo-accent: #ffc107;
+  --theme-logo-tile: #ffffff;
+  --theme-logo-tile-border: #e2e8f0;
+}
+
+.dark {
+  --theme-ink: #f1f5f9;
+  --theme-ink-muted: #94a3b8;
+  --theme-surface: #0f172a;
+  --theme-surface-elevated: #1e293b;
+  --theme-border: #334155;
+  --theme-accent: #3b82f6;
+  --theme-accent-light: #60a5fa;
+  --theme-accent-dark: #2563eb;
+  --theme-accent-soft: #1e3a5f;
+  --theme-sidebar: #1a1f24;
+  --theme-sidebar-muted: #9ca3af;
+  --theme-photo-accent: #eab308;
+  /* Keep logo tiles light in dark mode so dark/black brand marks stay readable */
+  --theme-logo-tile: #ffffff;
+  --theme-logo-tile-border: #cbd5e1;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply bg-surface font-sans text-ink antialiased transition-colors duration-300;
+  }
+
+  ::selection {
+    @apply bg-accent-soft text-accent-dark;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-accent to-accent-light px-6 py-3 text-sm font-semibold text-white shadow-md shadow-accent/30 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:from-accent-dark hover:to-accent hover:shadow-lg hover:shadow-accent/40 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-border bg-surface-elevated px-6 py-3 text-sm font-semibold text-ink shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft hover:text-accent hover:shadow-md hover:shadow-accent/15 active:translate-y-0;
+  }
+
+  .gradient-heading {
+    @apply bg-gradient-to-r from-accent-dark via-accent to-accent-light bg-clip-text text-transparent;
+  }
+
+  .section-gradient {
+    @apply border-t border-border/80 bg-gradient-to-br from-surface-elevated via-surface-elevated to-accent-soft/50;
+  }
+
+  .main-panel {
+    @apply px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14;
+  }
+
+  .logo-tile {
+    @apply flex aspect-square items-center justify-center rounded-2xl border border-logo-tile-border bg-logo-tile p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 hover:shadow-md hover:shadow-accent/10;
+  }
+
+  .page-transition {
+    animation: page-transition-in 0.55s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  @keyframes page-transition-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-transition {
+      animation: none;
+    }
+  }
+
+  .mobile-menu-panel {
+    display: grid;
+    transition: grid-template-rows 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu-panel[data-open='true'] {
+    grid-template-rows: 1fr;
+  }
+
+  .mobile-menu-panel[data-open='false'] {
+    grid-template-rows: 0fr;
+  }
+
+  .mobile-menu-panel__inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .mobile-menu-content {
+    transition:
+      opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu-panel[data-open='true'] .mobile-menu-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-menu-panel[data-open='false'] .mobile-menu-content {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-panel,
+    .mobile-menu-content,
+    .mobile-menu-icon {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  .form-label {
+    @apply mb-2 block text-sm font-medium text-ink-muted;
+  }
+
+  .form-input {
+    @apply w-full rounded-lg border border-border bg-surface-elevated px-4 py-3 text-ink shadow-sm transition-all duration-200 placeholder:text-ink-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
+  }
+
+  .form-textarea {
+    @apply w-full resize-y rounded-lg border border-border bg-surface-elevated px-4 py-3 text-ink shadow-sm transition-all duration-200 placeholder:text-ink-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
+  }
+
+  .prose-blog {
+    @apply max-w-none text-ink-muted leading-relaxed;
+
+    & h2 {
+      @apply mt-10 mb-4 font-serif text-3xl text-ink;
+    }
+
+    & h3 {
+      @apply mt-8 mb-3 text-xl font-semibold text-ink;
+    }
+
+    & p {
+      @apply mb-5;
+    }
+
+    & a {
+      @apply text-accent underline decoration-accent/30 underline-offset-2 transition hover:text-accent-dark hover:decoration-accent;
+    }
+
+    & ul,
+    & ol {
+      @apply mb-5 ml-6 space-y-2;
+    }
+
+    & ul {
+      @apply list-disc;
+    }
+
+    & ol {
+      @apply list-decimal;
+    }
+
+    & blockquote {
+      @apply my-8 border-l-4 border-accent pl-6 font-serif text-xl text-ink italic;
+    }
+
+    & code {
+      @apply rounded bg-accent-soft px-1.5 py-0.5 font-mono text-sm text-accent-dark;
+    }
+
+    & pre {
+      @apply my-6 overflow-x-auto rounded-xl bg-ink p-5 text-sm text-surface;
+    }
+
+    & pre code {
+      @apply bg-transparent p-0 text-inherit;
+    }
+
+    & img {
+      @apply my-8 rounded-xl;
+    }
+
+    & hr {
+      @apply my-10 border-border;
+    }
+  }
+}
