@@ -55,7 +55,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           {article.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent"
+              className="article-tag"
             >
               {tag}
             </li>
