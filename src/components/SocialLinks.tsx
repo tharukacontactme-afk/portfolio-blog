@@ -43,7 +43,7 @@ function isExternalLink(key: SocialKey): boolean {
 
 type SocialLinksProps = {
   className?: string
-  variant?: 'default' | 'sidebar'
+  variant?: 'default' | 'sidebar' | 'footer'
 }
 
 export default function SocialLinks({
@@ -57,10 +57,17 @@ export default function SocialLinks({
   const linkClass =
     variant === 'sidebar'
       ? 'flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-current transition-all duration-200 hover:border-white/50 hover:bg-white/10 hover:text-white [&_svg]:h-4 [&_svg]:w-4'
-      : 'text-current transition-all duration-200 hover:-translate-y-0.5 hover:text-accent-dark hover:opacity-100'
+      : variant === 'footer'
+        ? 'flex h-9 w-9 items-center justify-center rounded-full bg-surface text-ink-muted transition-colors hover:bg-border hover:text-ink [&_svg]:h-4 [&_svg]:w-4'
+        : 'text-current transition-all duration-200 hover:-translate-y-0.5 hover:text-accent-dark hover:opacity-100'
+
+  const listClass =
+    variant === 'footer'
+      ? `flex flex-nowrap items-center gap-3 ${className}`
+      : `flex flex-wrap items-center gap-5 ${className}`
 
   return (
-    <ul className={`flex flex-wrap items-center gap-5 ${className}`}>
+    <ul className={listClass}>
       {links.map((key) => (
         <li key={key}>
           <a

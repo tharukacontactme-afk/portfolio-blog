@@ -11,7 +11,7 @@ export default function ThemeToggle({ variant = 'default' }: ThemeToggleProps) {
   const buttonClass =
     variant === 'sidebar'
       ? 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/25 text-sidebar-muted transition-all duration-200 hover:border-white/50 hover:bg-white/10 hover:text-white'
-      : 'flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-elevated text-ink-muted shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft hover:text-accent hover:shadow-md'
+      : 'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-surface-elevated text-ink-muted shadow-sm transition-all duration-200 hover:border-accent hover:bg-accent-soft hover:text-accent hover:shadow-md'
 
   return (
     <button

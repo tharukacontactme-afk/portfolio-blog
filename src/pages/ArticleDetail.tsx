@@ -35,7 +35,7 @@ export default function ArticleDetail() {
   }
 
   return (
-    <article className="main-panel mx-auto max-w-3xl">
+    <article className="main-panel site-container max-w-3xl">
       <Link
         to="/articles"
         className="mb-8 inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:gap-2"

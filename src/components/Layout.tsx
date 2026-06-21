@@ -1,15 +1,17 @@
 import PageTransition from './PageTransition'
 import BackToTop from './BackToTop'
-import Sidebar from './Sidebar'
+import Footer from './Footer'
+import Header from './Header'
 
 export default function Layout() {
   return (
-    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[30%_70%]">
-      <Sidebar />
-      <main className="relative min-h-screen min-w-0 bg-surface-elevated">
+    <div className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-surface">
+      <Header />
+      <main className="relative min-w-0">
         <PageTransition />
         <BackToTop />
       </main>
+      <Footer />
     </div>
   )
 }

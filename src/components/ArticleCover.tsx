@@ -41,14 +41,14 @@ export default function ArticleCover({
 
   if (exhausted) {
     return (
-      <div className={`overflow-hidden rounded-t-2xl ${className}`}>
+      <div className={`overflow-hidden rounded-t-lg ${className}`}>
         <CoverPlaceholder title={title} variant={variant} />
       </div>
     )
   }
 
   return (
-    <div className={`overflow-hidden ${variant === 'card' ? 'rounded-t-2xl' : 'rounded-2xl'} ${className}`}>
+    <div className={`overflow-hidden ${variant === 'card' ? 'rounded-t-lg' : 'rounded-2xl'} ${className}`}>
       <div className={`relative ${aspectClass} w-full bg-surface`}>
         <img
           src={src}

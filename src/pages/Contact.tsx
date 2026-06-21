@@ -68,16 +68,16 @@ export default function Contact() {
   }
 
   return (
-    <div className="main-panel">
-      <section className="mx-auto max-w-xl">
-        <header className="mx-auto max-w-xl text-center">
+    <div className="main-panel site-container">
+      <section className="contact-panel mx-auto w-full max-w-xl">
+        <header className="text-center">
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-accent">
             Contact Me
           </p>
-          <h1 className="font-serif text-4xl text-ink sm:text-5xl">Get in touch!</h1>
+          <h1 className="text-4xl font-bold text-ink sm:text-5xl">Get in touch!</h1>
         </header>
 
-        <form onSubmit={handleSubmit} className="mx-auto mt-6 w-full max-w-xl space-y-5">
+        <form onSubmit={handleSubmit} className="mt-8 w-full space-y-6">
           <input
             type="checkbox"
             name="botcheck"

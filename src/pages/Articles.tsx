@@ -1,22 +1,30 @@
+import { useSearchParams } from 'react-router-dom'
 import ArticleCard from '@/components/ArticleCard'
-import PageHeader from '@/components/PageHeader'
+import Pagination from '@/components/Pagination'
 import { getAllArticles } from '@/lib/articles'
+
+const ARTICLES_PER_PAGE = 3
+
 export default function Articles() {
   const articles = getAllArticles()
+  const [searchParams] = useSearchParams()
+  const requestedPage = Number.parseInt(searchParams.get('page') ?? '1', 10)
+  const totalPages = Math.max(1, Math.ceil(articles.length / ARTICLES_PER_PAGE))
+  const currentPage = Number.isFinite(requestedPage)
+    ? Math.min(Math.max(1, requestedPage), totalPages)
+    : 1
+  const start = (currentPage - 1) * ARTICLES_PER_PAGE
+  const pageArticles = articles.slice(start, start + ARTICLES_PER_PAGE)
 
   return (
-    <div className="main-panel mx-auto max-w-5xl">
-      <PageHeader
-        eyebrow="Writing"
-        title="Articles"
-        description="Essays and notes on building software, leading teams, and continuous learning."
-      />
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {articles.map((article) => (
+    <div className="main-panel site-container">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {pageArticles.map((article) => (
           <ArticleCard key={article.slug} article={article} />
         ))}
       </div>
+
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   )
 }

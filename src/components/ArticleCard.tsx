@@ -6,17 +6,11 @@ interface ArticleCardProps {
   article: Article
 }
 
-function formatDate(date: string) {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(date))
-}
-
 export default function ArticleCard({ article }: ArticleCardProps) {
+  const primaryTag = article.tags?.[0]
+
   return (
-    <article className="group overflow-hidden rounded-2xl border border-border bg-surface-elevated transition-all duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/15">
+    <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-sm transition-shadow duration-200 hover:shadow-md">
       <Link
         to={`/articles/${article.slug}`}
         className="block outline-offset-4"
@@ -31,45 +25,20 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         />
       </Link>
 
-      <div className="p-6">
-      <div className="mb-3 flex flex-wrap items-center gap-3 text-sm text-ink-muted">
-        <time dateTime={article.date}>{formatDate(article.date)}</time>
-        {article.readingTime && (
-          <>
-            <span aria-hidden>·</span>
-            <span>{article.readingTime}</span>
-          </>
+      <div className="flex flex-1 flex-col p-5">
+        {primaryTag && (
+          <span className="article-tag mb-3 self-start">{primaryTag}</span>
         )}
-      </div>
 
-      <h2 className="mb-2 font-serif text-2xl text-ink transition group-hover:text-accent">
-        <Link to={`/articles/${article.slug}`} className="outline-offset-4">
-          {article.title}
-        </Link>
-      </h2>
+        <h2 className="mb-2 text-lg font-bold leading-snug text-ink transition group-hover:text-accent-dark">
+          <Link to={`/articles/${article.slug}`} className="outline-offset-4">
+            {article.title}
+          </Link>
+        </h2>
 
-      <p className="mb-4 line-clamp-2 text-ink-muted">{article.excerpt}</p>
-
-      {article.tags && article.tags.length > 0 && (
-        <ul className="mb-4 flex flex-wrap gap-2">
-          {article.tags.map((tag) => (
-            <li
-              key={tag}
-              className="article-tag"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <Link
-        to={`/articles/${article.slug}`}
-        className="inline-flex items-center gap-1 text-sm font-semibold text-accent transition-all duration-200 hover:gap-2 hover:text-accent-dark"
-      >
-        Read article
-        <span aria-hidden>→</span>
-      </Link>
+        <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-ink-muted">
+          {article.excerpt}
+        </p>
       </div>
     </article>
   )

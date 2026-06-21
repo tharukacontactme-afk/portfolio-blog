@@ -5,7 +5,6 @@ import About from '@/pages/About'
 import Articles from '@/pages/Articles'
 import ArticleDetail from '@/pages/ArticleDetail'
 import Contact from '@/pages/Contact'
-import Tools from '@/pages/Tools'
 import NotFound from '@/pages/NotFound'
 
 const router = createBrowserRouter([
@@ -17,7 +16,6 @@ const router = createBrowserRouter([
       { path: 'about', element: <About /> },
       { path: 'articles', element: <Articles /> },
       { path: 'articles/:slug', element: <ArticleDetail /> },
-      { path: 'tools', element: <Tools /> },
       { path: 'contact', element: <Contact /> },
       { path: '*', element: <NotFound /> },
     ],

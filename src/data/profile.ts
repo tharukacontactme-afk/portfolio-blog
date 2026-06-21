@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Tharuka Hettiarachchi',
-  avatar: '/images/profile.jpeg',
+  avatar: '/images/profile.png',
   avatarAlt: 'Tharuka Hettiarachchi',
   role: 'Associate Consultant & Certified ScrumMaster®',
   tagline: 'I work across digital transformation, industrial automation, and intelligent systems to design efficient, scalable solutions.',
